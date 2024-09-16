@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { USERS } from './users';
-//const userRandom = Math.floor(Math.random() * USERS.length);
 
 @Component({
   selector: 'app-user',
@@ -13,12 +12,19 @@ export class UserComponent {
     const userRandom = Math.floor(Math.random() * USERS.length);
     return USERS[userRandom];
   }
-  selectedUser = this._selectedUser;
-  get userImg() {
-    return 'assets/users/' + this.selectedUser.avatar;
-  }
+
+  // Create such a Signal Event Emitter Object.
+  selectedUser = signal(this._selectedUser);
+
+  // get userImg() {
+  //   return 'assets/users/' + this.selectedUser.avatar;
+  // }
+  // With Signal Use computed (function as argument).
+  userImg = computed(() => 'assets/users/' + this.selectedUser().avatar);
   onSelectUser() {
-    this.selectedUser = this._selectedUser;
-    console.log(this.selectedUser.name + ' is selected!');
+    // Signal Object has a  set method.
+    this.selectedUser.set(this._selectedUser);
+    // You have to call the signal value as a function.
+    console.log(this.selectedUser().name + ' is selected!');
   }
 }
