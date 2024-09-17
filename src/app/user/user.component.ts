@@ -1,6 +1,19 @@
 import { Component, Input, Output, EventEmitter, output } from '@angular/core';
 import { USERS } from './users';
 
+// Type alias.
+type User = {
+  id: string;
+  avatar: string;
+  name: string;
+};
+// Other syntax
+/* interface User {
+  id: string;
+  avatar: string;
+  name: string;
+}; */
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -13,12 +26,8 @@ export class UserComponent {
   /* @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string; */
-  // Could be of course a value type Object.
-  @Input({ required: true }) user!: {
-    id: string;
-    avatar: string;
-    name: string;
-  };
+  // Could be of course a value type Object (See alias above).
+  @Input({ required: true }) user!: User;
   // Emitter event.
   @Output() onSelect = new EventEmitter<string>();
   // Another new way of output declaration.
