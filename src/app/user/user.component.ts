@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, computed, input } from '@angular/core';
 import { USERS } from './users';
 
 @Component({
@@ -8,12 +8,19 @@ import { USERS } from './users';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  // Must be typed.
-  // ! => no init value.
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
-  get imgPath() {
-    return './assets/users/' + this.avatar;
-  }
+  /* Must be typed.
+  ! => no init value. 
+  Input => decorator || input => special function. */
+  // @Input({ required: true }) avatar!: string;
+  // @Input({ required: true }) name!: string;
+  //
+  // TypeScript annotation.
+  // Read Only no way to change the values (set).
+  avatar = input.required<string>();
+  name = input.required<string>();
+  imgPath = computed(() => './assets/users/' + this.avatar());
+  // get imgPath() {
+  //   return './assets/users/' + this.avatar();
+  // }
   onSelectUser() {}
 }
