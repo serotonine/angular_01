@@ -8,7 +8,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './task.component.css',
 })
 export class TaskComponent {
-  @Input({ required: true }) name!: string;
+  // ? => It might to be a value
+  @Input() name?: string;
+  // Could be also
+  /* @Input() name: string | undefined; */
+
   // @Input({ required: true }) title!: string;
   // @Input({ required: true }) summary!: string;
   // @Input({ required: true }) dueDate!: string;

@@ -10,18 +10,24 @@ import { USERS } from './users';
 export class UserComponent {
   // Must be typed.
   // ! => no init value.
-  @Input({ required: true }) id!: string;
+  /* @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
+  @Input({ required: true }) name!: string; */
+  // Could be of course a value type Object.
+  @Input({ required: true }) user!: {
+    id: string;
+    avatar: string;
+    name: string;
+  };
   // Emitter event.
   @Output() onSelect = new EventEmitter<string>();
   // Another new way of output declaration.
   /* onSelect = output<string>(); */
   onSelectUser() {
-    this.onSelect.emit(this.id);
+    this.onSelect.emit(this.user.id);
   }
 
   get imgPath() {
-    return './assets/users/' + this.avatar;
+    return './assets/users/' + this.user.avatar;
   }
 }
