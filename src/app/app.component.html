@@ -7,7 +7,11 @@
     </li>
     }
   </ul>
-  <app-task [name]="selectedUser ? selectedUser.name : 'No name'" />
+  @if(selectedUser){
+  <app-task [name]="selectedUser.name" />
+  } @else{
+  <p>Select a user to see it's task.</p>
+  }
 </main>
 <!-- [title]="users[3].name"
     [summary]="users[3].name"
