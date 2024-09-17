@@ -12,4 +12,8 @@ import { USERS } from './user/users';
 })
 export class AppComponent {
   users = USERS;
+  //
+  onSelectUser(id: string) {
+    console.log(id);
+  }
 }
