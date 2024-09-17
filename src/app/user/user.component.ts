@@ -14,9 +14,9 @@ export class UserComponent {
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
   // Emitter event.
-  // @Output() onSelect = new EventEmitter();
-  // Another way of declaration.
-  onSelect = output<string>();
+  @Output() onSelect = new EventEmitter<string>();
+  // Another new way of output declaration.
+  /* onSelect = output<string>(); */
   onSelectUser() {
     this.onSelect.emit(this.id);
   }
