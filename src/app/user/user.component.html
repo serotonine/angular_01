@@ -1,7 +1,6 @@
 <div>
   <button (click)="onSelectUser()">
-    <!-- You have to call the signal value as a function -->
-    <img [src]="userImg()" [alt]="selectedUser().name" />
-    <span>{{ selectedUser().name }}</span>
+    <img [src]="imgPath" [alt]="name" />
+    <span>{{ name }}</span>
   </button>
 </div>
