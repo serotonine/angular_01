@@ -1,19 +1,6 @@
 import { Component, Input, Output, EventEmitter, output } from '@angular/core';
 import { USERS } from './users';
-
-// Type alias.
-type User = {
-  id: string;
-  avatar: string;
-  name: string;
-};
-// Other syntax
-/* interface User {
-  id: string;
-  avatar: string;
-  name: string;
-}; */
-
+import { type User } from './user.model';
 @Component({
   selector: 'app-user',
   standalone: true,
