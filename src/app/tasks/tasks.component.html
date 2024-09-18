@@ -12,5 +12,5 @@
   </ul>
 </section>
 @if(isOpenNewTask){
-<app-newtask (onClose)="closeTaskForm()" />
+<app-newtask (onClose)="closeTaskForm()" (addTask)="onAddTask($event)" />
 }
