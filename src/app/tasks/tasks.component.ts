@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TaskComponent } from './task/task.component';
+import { NewtaskComponent } from './newtask/newtask.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewtaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
@@ -43,5 +44,16 @@ export class TasksComponent {
   ];
   get selectedUserTasks() {
     return this.tasks.filter((task) => task.userId === this.userId);
+  }
+
+  deleteTask(taskId: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+  }
+
+  // Open Add new task form.
+  isOpenNewTask = false;
+
+  openTaskForm() {
+    this.isOpenNewTask = true;
   }
 }
