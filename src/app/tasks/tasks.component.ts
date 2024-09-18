@@ -56,4 +56,8 @@ export class TasksComponent {
   openTaskForm() {
     this.isOpenNewTask = true;
   }
+  // Close Add new task form.
+  closeTaskForm() {
+    this.isOpenNewTask = false;
+  }
 }
