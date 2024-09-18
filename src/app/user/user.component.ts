@@ -13,8 +13,12 @@ export class UserComponent {
   /* @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string; */
+
   // Could be of course a value type Object (See alias above).
   @Input({ required: true }) user!: User;
+  // Class.
+  @Input({ required: true }) selected!: boolean;
+
   // Emitter event.
   @Output() onSelect = new EventEmitter<string>();
   // Another new way of output declaration.
