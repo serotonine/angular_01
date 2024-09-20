@@ -28,7 +28,7 @@ export class TasksComponent {
 
   // TASKS LIST //
   @Input({ required: true }) userId!: string;
-  // Retrieve all task by
+  // Retrieve all task by user.
   get selectedUserTasks() {
     return this.tasksService.getUserTasks(this.userId);
   }
@@ -36,27 +36,16 @@ export class TasksComponent {
   deleteTask(taskId: string) {
     this.tasksService.deleteTask(taskId);
   }
-
   // Add a new task.
   onAddTask(taskDatas: Task) {
     this.tasksService.addTask(taskDatas, this.userId);
-    // this.tasks.unshift({
-    //   id: new Date().getTime().toString(),
-    //   userId: ,
-    //   title: taskDatas.title,
-    //   summary: taskDatas.summary,
-    //   dueDate: taskDatas.date,
-    // });
     this.closeTaskForm();
   }
-
-  // Open Add new task form.
+  // Open | close New Task's form.
   isOpenNewTask = false;
-
   openTaskForm() {
     this.isOpenNewTask = true;
   }
-  // Close Add new task form.
   closeTaskForm() {
     this.isOpenNewTask = false;
   }

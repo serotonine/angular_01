@@ -12,5 +12,9 @@
   </ul>
 </section>
 @if(isOpenNewTask){
-<app-newtask (onClose)="closeTaskForm()" (addTask)="onAddTask($event)" />
+<app-newtask
+  (onClose)="closeTaskForm()"
+  (addTask)="onAddTask($event)"
+  [userId]="userId"
+/>
 }
