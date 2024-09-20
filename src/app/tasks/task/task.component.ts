@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { type Task } from './task.model';
 import { CardComponent } from '../../shared/card/card.component';
 import { DatePipe } from '@angular/common';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task',
@@ -11,10 +12,9 @@ import { DatePipe } from '@angular/common';
   imports: [CardComponent, DatePipe],
 })
 export class TaskComponent {
+  constructor(private tasksService: TasksService) {}
   @Input({ required: true }) task!: Task;
-  // Complete Event.
-  @Output() complete = new EventEmitter<string>();
   onComplete() {
-    this.complete.emit(this.task.id);
+    this.tasksService.deleteTask(this.task.id);
   }
 }

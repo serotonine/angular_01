@@ -32,10 +32,7 @@ export class TasksComponent {
   get selectedUserTasks() {
     return this.tasksService.getUserTasks(this.userId);
   }
-  // Complete btn.
-  deleteTask(taskId: string) {
-    this.tasksService.deleteTask(taskId);
-  }
+
   // Add a new task.
   onAddTask(taskDatas: Task) {
     this.tasksService.addTask(taskDatas, this.userId);
