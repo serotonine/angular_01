@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { type NewTaskDatas } from '../task/task.model';
+import { type Task } from '../task/task.model';
 
 @Component({
   selector: 'app-newtask',
@@ -16,15 +16,17 @@ export class NewtaskComponent {
     this.onClose.emit();
   }
   // Collect entered datas.
-  @Output() addTask = new EventEmitter<NewTaskDatas>();
+  @Output() addTask = new EventEmitter<Task>();
   enterTitle = '';
   enterSummary = '';
   enterDate = '';
   onSubmit() {
     this.addTask.emit({
+      userId: '',
+      id: '',
       title: this.enterTitle,
       summary: this.enterSummary,
-      date: this.enterDate,
+      dueDate: this.enterDate,
     });
   }
 }

@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TasksService } from './tasks.service';
 import { TaskComponent } from './task/task.component';
 import { NewtaskComponent } from './newtask/newtask.component';
-import { type NewTaskDatas } from './task/task.model';
+import { type Task } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -11,6 +12,15 @@ import { type NewTaskDatas } from './task/task.model';
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
+  /* TypeScript shortcut : init taskService right in the constructor
+    === private taskService: TasksService then in the constructor:
+    this.taskService = TasksService (constructor param). 
+    */
+  /* Another way to implement a service: use Angular inject() fct.
+    private taskService = inject(TasksService).
+    Cf NewTaskComponent.
+  */
+  constructor(private tasksService: TasksService) {}
   // ? => It might to be a value
   @Input({ required: true }) name!: string;
   // Could be also
@@ -18,37 +28,26 @@ export class TasksComponent {
 
   // TASKS LIST //
   @Input({ required: true }) userId!: string;
-  tasks = [
-    {
-      id: 't1',
-      userId: 'u1',
-      title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
-      dueDate: '2025-12-31',
-    },
-    {
-      id: 't2',
-      userId: 'u3',
-      title: 'Build first prototype',
-      summary: 'Build a first prototype of the online shop website',
-      dueDate: '2024-05-31',
-    },
-    {
-      id: 't3',
-      userId: 'u3',
-      title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
-      dueDate: '2024-06-15',
-    },
-  ];
+  // Retrieve all task by
   get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.userId);
+    return this.tasksService.getUserTasks(this.userId);
+  }
+  // Complete btn.
+  deleteTask(taskId: string) {
+    this.tasksService.deleteTask(taskId);
   }
 
-  deleteTask(taskId: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+  // Add a new task.
+  onAddTask(taskDatas: Task) {
+    this.tasksService.addTask(taskDatas, this.userId);
+    // this.tasks.unshift({
+    //   id: new Date().getTime().toString(),
+    //   userId: ,
+    //   title: taskDatas.title,
+    //   summary: taskDatas.summary,
+    //   dueDate: taskDatas.date,
+    // });
+    this.closeTaskForm();
   }
 
   // Open Add new task form.
@@ -60,16 +59,5 @@ export class TasksComponent {
   // Close Add new task form.
   closeTaskForm() {
     this.isOpenNewTask = false;
-  }
-  // Add a new task.
-  onAddTask(taskDatas: NewTaskDatas) {
-    this.tasks.unshift({
-      id: new Date().getTime().toString(),
-      userId: this.userId,
-      title: taskDatas.title,
-      summary: taskDatas.summary,
-      dueDate: taskDatas.date,
-    });
-    this.closeTaskForm();
   }
 }
