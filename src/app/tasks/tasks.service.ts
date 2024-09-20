@@ -5,9 +5,14 @@ import { Task } from './task/task.model';
   providedIn: 'root',
 })
 export class TasksService {
-  constructor() {}
+  constructor() {
+    const tasks = localStorage.getItem('tasks');
+    if (tasks) {
+      this._tasks = JSON.parse(tasks);
+    }
+  }
 
-  private tasks = [
+  private _tasks = [
     {
       id: 't1',
       userId: 'u1',
@@ -32,20 +37,25 @@ export class TasksService {
       dueDate: '2024-06-15',
     },
   ];
+  private _saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(this._tasks));
+  }
 
   // All current user tasks.
   getUserTasks(userId: string) {
-    return this.tasks.filter((task) => task.userId === userId);
+    return this._tasks.filter((task) => task.userId === userId);
   }
   // Add task.
   addTask(taskDatas: Task, userId: string) {
     (taskDatas.id = new Date().getTime().toString()),
       (taskDatas.userId = userId);
-    this.tasks.unshift(taskDatas);
+    this._tasks.unshift(taskDatas);
+    this._saveTasks();
   }
 
   // Delete task.
   deleteTask(taskId: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+    this._tasks = this._tasks.filter((task) => task.id !== taskId);
+    this._saveTasks();
   }
 }
